@@ -1,0 +1,26 @@
+# 六爻古籍清单模板。source_file 按你本地实际文件名填写。
+books:
+  - title: 增删卜易
+    priority: core
+    recommended_path: resources/books_corrected/增删卜易.md
+    roles: [用神, 旺衰, 动爻, 应期, 分类占断, 案例]
+  - title: 卜筮正宗
+    priority: core
+    recommended_path: resources/books_corrected/卜筮正宗.md
+    roles: [纳甲, 六亲, 世应, 用神, 分类占断]
+  - title: 易隐
+    priority: core
+    recommended_path: resources/books_corrected/易隐.md
+    roles: [断法体系, 象意, 分类占断]
+  - title: 黄金策
+    priority: topic_rules
+    recommended_path: resources/books_corrected/黄金策.md
+    roles: [分类占断, 断语, 占事专题]
+  - title: 断易天机
+    priority: case_reference
+    recommended_path: resources/books_corrected/断易天机.md
+    roles: [案例, 应期, 取象]
+  - title: 火珠林
+    priority: historical
+    recommended_path: resources/books_corrected/火珠林.md
+    roles: [纳甲源流, 古法, 基础规则]

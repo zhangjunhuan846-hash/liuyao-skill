@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LiuyaoCaseRecord",
+  "type": "object",
+  "required": [
+    "case_id",
+    "question",
+    "mode",
+    "created_at"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "fresh",
+        "literature_only",
+        "analogical_case",
+        "posthoc_learning"
+      ]
+    },
+    "question": {
+      "type": "string"
+    },
+    "casting_method": {
+      "type": "string"
+    },
+    "date_time": {
+      "type": "string"
+    },
+    "chart": {
+      "type": "object"
+    },
+    "judgment": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "privacy_level": {
+      "type": "string",
+      "enum": [
+        "private",
+        "anonymized",
+        "public_template"
+      ]
+    }
+  }
+}

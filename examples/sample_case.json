@@ -1,0 +1,20 @@
+{
+  "mode": "fresh",
+  "question": "测试：某合作是否适合推进？",
+  "casting_method": "manual_or_external_chart",
+  "date_time": "2026-06-21 20:00",
+  "chart": {
+    "primary_hexagram": "水火既济",
+    "changed_hexagram": "泽火革",
+    "moving_lines": [
+      5
+    ],
+    "shi": "未提供",
+    "ying": "未提供",
+    "six_relatives": "未提供",
+    "six_spirits": "未提供"
+  },
+  "judgment": "示例占位，不作为真实断语。",
+  "evidence": [],
+  "privacy_level": "public_template"
+}

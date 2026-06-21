@@ -1,0 +1,14 @@
+version: 0.1.0
+status: seed_rules_only
+notes:
+  - 本文件只记录经过多次案例验证、可复查的规则摘要。
+  - 不要把单个案例的结果直接上升为规则。
+  - 每条规则必须标注适用条件、反例、来源依据和最近验证时间。
+rule_groups:
+  yongshen_selection: []
+  moving_line_priority: []
+  six_relatives: []
+  six_spirits: []
+  date_month_strength: []
+  emptiness_conflict_combination: []
+  topic_specific: []

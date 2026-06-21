@@ -1,0 +1,29 @@
+# Runtime private memory - do not publish
+memory/casebook.jsonl
+memory/feedback_log.jsonl
+memory/incoming_cases/*.json
+memory_backups/
+
+# Generated indexes / reports
+resources/index/*.jsonl
+resources/index/*.json
+resources/reports/*.csv
+resources/reports/*.json
+
+# Raw OCR and local corpora may contain copyrighted/private text
+resources/books_raw/*
+resources/books_raw_md/*.md
+resources/books_raw_md/*.txt
+resources/books_corrected/*.md
+resources/books_corrected/*.txt
+!resources/books_raw_md/README.md
+!resources/books_corrected/README.md
+
+# Python / OS
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+.env
+.venv/
+venv/

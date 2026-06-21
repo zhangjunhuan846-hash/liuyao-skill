@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LiuyaoFeedback",
+  "type": "object",
+  "required": [
+    "case_id",
+    "outcome",
+    "note",
+    "created_at"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "support",
+        "partial",
+        "reverse",
+        "unverified",
+        "abnormal"
+      ]
+    },
+    "note": {
+      "type": "string"
+    },
+    "rule_candidates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
