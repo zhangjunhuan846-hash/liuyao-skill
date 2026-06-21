@@ -1,0 +1,292 @@
+[
+  {
+    "path": ".gitignore",
+    "suffix": "",
+    "size_bytes": 613
+  },
+  {
+    "path": "CODEX_TEST_PROMPTS.md",
+    "suffix": ".md",
+    "size_bytes": 1852
+  },
+  {
+    "path": "README.md",
+    "suffix": ".md",
+    "size_bytes": 9979
+  },
+  {
+    "path": "README.zh-CN.md",
+    "suffix": ".md",
+    "size_bytes": 9979
+  },
+  {
+    "path": "SKILL.md",
+    "suffix": ".md",
+    "size_bytes": 14125
+  },
+  {
+    "path": "config/retrieval_policy.yml",
+    "suffix": ".yml",
+    "size_bytes": 1202
+  },
+  {
+    "path": "config/rule_priority.yml",
+    "suffix": ".yml",
+    "size_bytes": 1001
+  },
+  {
+    "path": "config/school_registry.yml",
+    "suffix": ".yml",
+    "size_bytes": 2860
+  },
+  {
+    "path": "examples/sample_case.json",
+    "suffix": ".json",
+    "size_bytes": 520
+  },
+  {
+    "path": "examples/sample_feedback.json",
+    "suffix": ".json",
+    "size_bytes": 106
+  },
+  {
+    "path": "knowledge/00_basic_terms/README.md",
+    "suffix": ".md",
+    "size_bytes": 349
+  },
+  {
+    "path": "knowledge/01_core_classics/README.md",
+    "suffix": ".md",
+    "size_bytes": 557
+  },
+  {
+    "path": "knowledge/02_auxiliary_systems/README.md",
+    "suffix": ".md",
+    "size_bytes": 533
+  },
+  {
+    "path": "knowledge/03_modern_cases/README.md",
+    "suffix": ".md",
+    "size_bytes": 641
+  },
+  {
+    "path": "knowledge/04_conflict_registry/README.md",
+    "suffix": ".md",
+    "size_bytes": 725
+  },
+  {
+    "path": "knowledge/04_conflict_registry/六神象意冲突表.md",
+    "suffix": ".md",
+    "size_bytes": 708
+  },
+  {
+    "path": "knowledge/04_conflict_registry/应期冲突表.md",
+    "suffix": ".md",
+    "size_bytes": 667
+  },
+  {
+    "path": "knowledge/04_conflict_registry/旺衰权重冲突表.md",
+    "suffix": ".md",
+    "size_bytes": 796
+  },
+  {
+    "path": "knowledge/04_conflict_registry/用神冲突表.md",
+    "suffix": ".md",
+    "size_bytes": 1416
+  },
+  {
+    "path": "knowledge/04_conflict_registry/飞伏神冲突表.md",
+    "suffix": ".md",
+    "size_bytes": 683
+  },
+  {
+    "path": "memory/README.md",
+    "suffix": ".md",
+    "size_bytes": 537
+  },
+  {
+    "path": "memory/casebook.jsonl",
+    "suffix": ".jsonl",
+    "size_bytes": 0
+  },
+  {
+    "path": "memory/feedback_log.jsonl",
+    "suffix": ".jsonl",
+    "size_bytes": 0
+  },
+  {
+    "path": "memory/incoming_cases/.gitkeep",
+    "suffix": "",
+    "size_bytes": 0
+  },
+  {
+    "path": "memory/rule_bank.yaml",
+    "suffix": ".yaml",
+    "size_bytes": 620
+  },
+  {
+    "path": "memory/unresolved_questions.md",
+    "suffix": ".md",
+    "size_bytes": 132
+  },
+  {
+    "path": "memory/version_log.md",
+    "suffix": ".md",
+    "size_bytes": 101
+  },
+  {
+    "path": "notes/.gitkeep",
+    "suffix": "",
+    "size_bytes": 0
+  },
+  {
+    "path": "notes/README.md",
+    "suffix": ".md",
+    "size_bytes": 88
+  },
+  {
+    "path": "raw_pdfs/.gitkeep",
+    "suffix": "",
+    "size_bytes": 0
+  },
+  {
+    "path": "raw_pdfs/README.md",
+    "suffix": ".md",
+    "size_bytes": 167
+  },
+  {
+    "path": "resources/books_corrected/README.md",
+    "suffix": ".md",
+    "size_bytes": 387
+  },
+  {
+    "path": "resources/books_metadata/book_manifest.yaml",
+    "suffix": ".yaml",
+    "size_bytes": 2160
+  },
+  {
+    "path": "resources/books_processed/README.md",
+    "suffix": ".md",
+    "size_bytes": 110
+  },
+  {
+    "path": "resources/books_raw_md/README.md",
+    "suffix": ".md",
+    "size_bytes": 364
+  },
+  {
+    "path": "resources/index/README.md",
+    "suffix": ".md",
+    "size_bytes": 112
+  },
+  {
+    "path": "resources/schemas/case_record_schema.json",
+    "suffix": ".json",
+    "size_bytes": 968
+  },
+  {
+    "path": "resources/schemas/feedback_schema.json",
+    "suffix": ".json",
+    "size_bytes": 630
+  },
+  {
+    "path": "resources/templates/conflict_卦例输入模板.md",
+    "suffix": ".md",
+    "size_bytes": 566
+  },
+  {
+    "path": "resources/templates/conflict_规则卡片模板.md",
+    "suffix": ".md",
+    "size_bytes": 522
+  },
+  {
+    "path": "resources/templates/conflict_解卦输出模板.md",
+    "suffix": ".md",
+    "size_bytes": 1327
+  },
+  {
+    "path": "resources/templates/input_template.md",
+    "suffix": ".md",
+    "size_bytes": 254
+  },
+  {
+    "path": "resources/templates/learning_protocol.md",
+    "suffix": ".md",
+    "size_bytes": 235
+  },
+  {
+    "path": "resources/templates/memory_policy.md",
+    "suffix": ".md",
+    "size_bytes": 270
+  },
+  {
+    "path": "resources/templates/najia_checklist.md",
+    "suffix": ".md",
+    "size_bytes": 286
+  },
+  {
+    "path": "resources/templates/output_template.md",
+    "suffix": ".md",
+    "size_bytes": 1381
+  },
+  {
+    "path": "resources/templates/retrieval_rules.md",
+    "suffix": ".md",
+    "size_bytes": 946
+  },
+  {
+    "path": "scripts/add_case.py",
+    "suffix": ".py",
+    "size_bytes": 803
+  },
+  {
+    "path": "scripts/ingest_books.py",
+    "suffix": ".py",
+    "size_bytes": 9617
+  },
+  {
+    "path": "scripts/liuyao_basic_chart.py",
+    "suffix": ".py",
+    "size_bytes": 5005
+  },
+  {
+    "path": "scripts/reset_runtime_memory.py",
+    "suffix": ".py",
+    "size_bytes": 1357
+  },
+  {
+    "path": "scripts/retrieve_for_divination.py",
+    "suffix": ".py",
+    "size_bytes": 2157
+  },
+  {
+    "path": "scripts/retrieve_passages.py",
+    "suffix": ".py",
+    "size_bytes": 4966
+  },
+  {
+    "path": "scripts/summarize_learning.py",
+    "suffix": ".py",
+    "size_bytes": 699
+  },
+  {
+    "path": "scripts/update_feedback.py",
+    "suffix": ".py",
+    "size_bytes": 848
+  },
+  {
+    "path": "templates/卦例输入模板.md",
+    "suffix": ".md",
+    "size_bytes": 566
+  },
+  {
+    "path": "templates/规则卡片模板.md",
+    "suffix": ".md",
+    "size_bytes": 522
+  },
+  {
+    "path": "templates/解卦输出模板.md",
+    "suffix": ".md",
+    "size_bytes": 1327
+  }
+]

@@ -1,35 +1,19 @@
-# 六爻迭代解卦 Skill（Codex-ready 中文版）
+# 六爻迭代解卦 Skill（合并流派冲突版）
 
-这是一个面向 Codex / Claude Code / OpenClaw 的六爻解卦 skill 模板。设计目标不是“让模型凭感觉断卦”，而是把六爻解卦拆成可检查的流程：**起卦/装卦 → 古籍检索 → 独立判断 → 结果分级 → 事后反馈 → 规则迭代**。
+这是一个面向 Codex / Claude Code / OpenClaw 的六爻解卦 skill。新版已把原来的“六爻迭代解卦 skill”和“流派冲突并列分析 skill”合并到同一个项目里。
 
-本 skill 参考你之前的大六壬 skill 结构，但针对六爻做了三项关键调整：
+核心目标：
 
-1. **默认 fresh 模式**：新卦不读取旧案例，避免“之前案例影响新使用”。
-2. **古籍 RAG 与案例记忆分离**：古籍可以作为证据；真实案例默认只做事后复盘。
-3. **装卦与断卦分离**：允许你用外部排盘软件/网页排盘，也允许用本 skill 的基础脚本记录六爻结构。
+1. **fresh 模式独立解卦**：新卦默认不读取旧案例，避免历史案例污染。
+2. **古籍 RAG 与案例记忆分离**：古籍可以作为规则证据；真实案例默认只用于事后复盘。
+3. **流派矛盾并列输出**：遇到用神、旺衰、飞伏神、六神象意、应期等冲突时，不强行合并，而是列出所有可辨识结果，并标注流派、来源、证据链、冲突点和置信度。
+4. **现代案例降权**：南山真人、论坛卦例、课程讲义等默认不检索；只有用户明确要求时才作为现代案例派参考。
 
 > 注意：本 skill 不把六爻结论当成确定事实，也不建议用于医疗、法律、金融等高风险决策。
 
 ---
 
-## 1. 适合什么场景
-
-适合：
-
-- 你已经有本卦、变卦、世应、六亲、六神、动爻等信息，希望 Codex 按固定流程辅助分析。
-- 你有《增删卜易》《卜筮正宗》《易隐》《黄金策》《断易天机》等古籍 md/txt，想建立本地检索库。
-- 你想长期积累案例，但不想让旧案例污染新卦。
-- 你想做“六爻学习—反馈—规则迭代”的个人知识库。
-
-不适合：
-
-- 想让模型在没有卦盘、没有问题背景的情况下直接断具体结果。
-- 想把单个案例反馈直接变成硬规则。
-- 想把旧案例作为新卦的默认判断依据。
-
----
-
-## 2. 安装到 Codex
+## 1. 安装到 Codex
 
 Codex skill 通常放在：
 
@@ -42,7 +26,7 @@ Windows PowerShell：
 ```powershell
 $SkillRoot = "$env:USERPROFILE\.agents\skills"
 New-Item -ItemType Directory -Force $SkillRoot
-Expand-Archive ".\liuyao_iterative_skill_codex_ready_cn.zip" -DestinationPath $SkillRoot -Force
+Expand-Archive ".\liuyao-iterative-divination-merged-school-conflict.zip" -DestinationPath $SkillRoot -Force
 ```
 
 最终结构应为：
@@ -67,12 +51,12 @@ liuyao-iterative-divination
 
 ```text
 $liuyao-iterative-divination
-按 fresh 模式分析这个六爻卦，不参考历史案例。
+按 fresh 模式分析这个六爻卦，不参考历史案例。如果有流派矛盾，把所有结果都列出来并标注流派。
 ```
 
 ---
 
-## 3. 目录结构
+## 2. 目录结构
 
 ```text
 liuyao-iterative-divination/
@@ -80,70 +64,185 @@ liuyao-iterative-divination/
 ├─ README.md
 ├─ README.zh-CN.md
 ├─ CODEX_TEST_PROMPTS.md
+├─ config/
+│  ├─ school_registry.yml            # 流派注册表
+│  ├─ rule_priority.yml              # 规则优先级和置信度规则
+│  └─ retrieval_policy.yml           # 检索开关和冲突触发条件
+├─ knowledge/
+│  ├─ 00_basic_terms/                # 基础术语
+│  ├─ 01_core_classics/              # 核心古籍
+│  ├─ 02_auxiliary_systems/          # 辅助流派
+│  ├─ 03_modern_cases/               # 现代案例，默认不检索
+│  └─ 04_conflict_registry/          # 冲突登记表
 ├─ scripts/
-│  ├─ ingest_books.py                 # 建立古籍 chunk 索引
-│  ├─ retrieve_passages.py            # 单次关键词检索
-│  ├─ retrieve_for_divination.py      # 按六爻主题组合检索
-│  ├─ liuyao_basic_chart.py           # 基础六爻记录/本变卦辅助脚本
-│  ├─ add_case.py                     # 事后写入案例
-│  ├─ update_feedback.py              # 追加反馈
-│  ├─ summarize_learning.py           # 汇总反馈，不自动改规则
-│  └─ reset_runtime_memory.py         # 清空/备份运行记忆
+│  ├─ ingest_books.py                # 建立古籍/知识库 chunk 索引
+│  ├─ retrieve_passages.py           # 单次关键词检索
+│  ├─ retrieve_for_divination.py     # 按六爻主题组合检索
+│  ├─ liuyao_basic_chart.py          # 基础六爻记录/本变卦辅助脚本
+│  ├─ add_case.py                    # 事后写入案例
+│  ├─ update_feedback.py             # 追加反馈
+│  ├─ summarize_learning.py          # 汇总反馈，不自动改规则
+│  └─ reset_runtime_memory.py        # 清空/备份运行记忆
 ├─ resources/
-│  ├─ books_raw_md/                   # 原始 md 古籍放这里
-│  ├─ books_corrected/                # 清洗校对后的 md/txt 放这里
+│  ├─ books_raw_md/                  # 原始 OCR/MinerU Markdown
+│  ├─ books_corrected/               # 清洗校对后的 md/txt
 │  ├─ books_metadata/book_manifest.yaml
-│  ├─ index/                          # 自动生成索引
-│  ├─ templates/                      # 输入、输出、学习协议模板
-│  └─ schemas/                        # 案例和反馈 JSON schema
+│  ├─ index/                         # 自动生成索引
+│  ├─ templates/                     # 输入、输出、学习协议模板
+│  └─ schemas/                       # 案例和反馈 JSON schema
 ├─ memory/
-│  ├─ casebook.jsonl                  # 本地私有案例，默认不读
-│  ├─ feedback_log.jsonl              # 本地反馈，默认不读
+│  ├─ casebook.jsonl                 # 本地私有案例，fresh 默认不读
+│  ├─ feedback_log.jsonl             # 本地反馈，fresh 默认不读
 │  └─ incoming_cases/
+├─ raw_pdfs/                         # 原始 PDF，只归档，不直接检索
+├─ templates/                        # 流派冲突版模板
 └─ examples/
 ```
 
 ---
 
-## 4. 古籍 md 应该放哪里
+## 3. 古籍和案例应该放哪里
 
-原始 OCR / MinerU / Markdown 输出，先放：
+### 3.1 原始 PDF
+
+放在：
+
+```text
+raw_pdfs/
+```
+
+PDF 太大或 OCR 未校对时，不建议直接给 skill 检索。
+
+### 3.2 原始 OCR / MinerU Markdown
+
+放在：
 
 ```text
 resources/books_raw_md/
 ```
 
-例如：
+### 3.3 清洗校对后的古籍文本
 
-```text
-resources/books_raw_md/增删卜易.md
-resources/books_raw_md/卜筮正宗.md
-resources/books_raw_md/易隐.md
-resources/books_raw_md/黄金策.md
-resources/books_raw_md/断易天机.md
-```
-
-清洗校对后，再放：
+放在：
 
 ```text
 resources/books_corrected/
 ```
 
-例如：
+也可以按流派分层放入 `knowledge/`：
 
 ```text
-resources/books_corrected/增删卜易.md
-resources/books_corrected/卜筮正宗.md
-resources/books_corrected/易隐.md
-resources/books_corrected/黄金策.md
-resources/books_corrected/断易天机.md
+knowledge/01_core_classics/      火珠林、黄金策、增删卜易、卜筮正宗
+knowledge/02_auxiliary_systems/  易隐、断易天机、飞伏神、六神象意、神煞、纳音等
+knowledge/03_modern_cases/       南山真人卦例、现代案例、论坛卦例
+knowledge/04_conflict_registry/  用神、旺衰、飞伏神、六神象意、应期冲突表
 ```
 
-建议流程：
+### 3.4 推荐古籍优先级
+
+第一批建议先放：
 
 ```text
-PDF/OCR 原文 → books_raw_md/ → 清洗校对 → books_corrected/ → ingest_books.py → index/book_chunks.jsonl
+火珠林
+黄金策
+增删卜易
+卜筮正宗
 ```
+
+第二批再放：
+
+```text
+易隐
+断易天机
+卜筮全书
+海底眼
+易林补遗
+筮学指要
+```
+
+南山真人材料建议放：
+
+```text
+knowledge/03_modern_cases/南山真人卦例_modern_case.md
+```
+
+并加元数据：
+
+```yaml
+---
+title: 南山真人卦例
+school: 现代案例派
+source_type: modern_case
+authority_level: C
+retrieval_default: false
+use_mode: example_only
+warning: 仅用于参考象意展开，不作为基础规则来源，不得直接套断。
+---
+```
+
+---
+
+## 4. 每个 md 文件建议加元数据
+
+核心古籍：
+
+```yaml
+---
+title: 火珠林
+school: 传统纳甲六爻
+source_type: core_classic
+authority_level: A
+retrieval_default: true
+use_mode: rule_source
+notes: 作为默认主体系基础规则来源之一。
+---
+```
+
+辅助流派：
+
+```yaml
+---
+title: 飞伏神规则
+school: 飞伏神取法
+source_type: auxiliary_system
+authority_level: B
+retrieval_default: conditional
+use_mode: auxiliary_rule
+notes: 用神不现或伏藏关键时调用。
+---
+```
+
+现代案例：
+
+```yaml
+---
+title: 南山真人卦例
+school: 现代案例派
+source_type: modern_case
+authority_level: C
+retrieval_default: false
+use_mode: example_only
+warning: 不得作为基础规则来源。
+---
+```
+
+杂项合集：
+
+```yaml
+---
+title: 六爻秘籍合集
+school: 杂项未校资料
+source_type: misc_untrusted
+authority_level: D
+retrieval_default: false
+use_mode: manual_reference_only
+warning: 默认不检索，只能人工核验。
+---
+```
+
+---
+
+## 5. 建索引与检索
 
 建索引：
 
@@ -151,39 +250,51 @@ PDF/OCR 原文 → books_raw_md/ → 清洗校对 → books_corrected/ → inges
 python scripts/ingest_books.py
 ```
 
-检索：
+默认检索核心古籍、辅助规则和冲突表，不检索现代案例：
 
 ```powershell
 python scripts/retrieve_passages.py --query "用神 世爻 应爻 动爻 空亡 月建 日辰" --top-k 8
 ```
 
-综合检索：
+按书名过滤：
+
+```powershell
+python scripts/retrieve_passages.py --book 增删卜易 --query "用神 动爻 月建 日辰" --top-k 5
+```
+
+检索现代案例，需要显式开启：
+
+```powershell
+python scripts/retrieve_passages.py --query "南山真人 感情 六神 世应" --include-modern-cases --top-k 8
+```
+
+检索杂项未校资料，需要显式开启：
+
+```powershell
+python scripts/retrieve_passages.py --query "某口诀" --include-misc --top-k 8
+```
+
+组合检索：
 
 ```powershell
 python scripts/retrieve_for_divination.py --base "婚姻 官鬼 妻财 世应 六合 冲克" --top-k 5
 ```
 
+组合检索并包含现代案例：
+
+```powershell
+python scripts/retrieve_for_divination.py --base "婚姻 官鬼 妻财 世应 六合 冲克" --include-modern-cases --top-k 5
+```
+
 ---
 
-## 5. 四种运行模式
+## 6. 四种主要模式
 
-### 5.1 fresh：默认新卦模式
-
-用途：新问题、新卦、新判断。
-
-规则：
-
-- 不读取 `memory/casebook.jsonl`
-- 不读取 `memory/feedback_log.jsonl`
-- 不检索历史类案
-- 只用当前卦盘、六爻通用规则、古籍检索结果
-- 输出末尾声明：`本次为 fresh 模式，未调用历史案例。`
-
-推荐 prompt：
+### 6.1 fresh：默认新卦模式
 
 ```text
 $liuyao-iterative-divination
-按 fresh 模式解这个六爻卦，不参考历史案例。
+按 fresh 模式解这个六爻卦，不参考历史案例。如果流派有矛盾，请全部列出来。
 问题：……
 起卦时间：……
 本卦：……
@@ -193,173 +304,82 @@ $liuyao-iterative-divination
 六亲六神：……
 ```
 
-### 5.2 literature_only：只查古籍
+要求：
 
-用途：学习某个规则，不断具体卦。
+- 不读取 `memory/casebook.jsonl`
+- 不读取 `memory/feedback_log.jsonl`
+- 不检索历史类案
+- 只用当前卦盘、六爻通用规则、古籍检索结果
+- 末尾声明：`本次为 fresh 模式，未调用历史案例。`
+
+### 6.2 literature_only：只查古籍
 
 ```text
 只查古籍：用神、原神、忌神、仇神在婚姻占中的取法。
 ```
 
-### 5.3 analogical_case：类案参考
-
-用途：你明确说“参考历史案例”。
-
-要求：
-
-- 先独立解卦
-- 后列类案
-- 类案不能覆盖主判断
-- 必须说明类案相似点和不相似点
-
-### 5.4 posthoc_learning：反馈学习
-
-用途：事情应验后做复盘。
-
-要求：
-
-- 只记录反馈，不直接改核心规则
-- 标注：支持、部分支持、反向、无法验证、样本异常
-- 形成待验证假设，而不是立刻写成定论
-
----
-
-## 6. 推荐学习路线
-
-### 第一阶段：先学装卦结构
-
-目标：看懂一张六爻盘。
-
-需要掌握：
-
-- 本卦、变卦、互卦可先不急
-- 世爻、应爻
-- 六亲：父母、兄弟、子孙、妻财、官鬼
-- 六神：青龙、朱雀、勾陈、螣蛇、白虎、玄武
-- 动爻、暗动、伏神、飞神
-- 月建、日辰、旬空
-
-### 第二阶段：再学用神体系
-
-不要一开始就背大量断语。先把“占事—用神”固定住：
-
-| 占事 | 常用用神 |
-|---|---|
-| 感情/婚姻 | 男占妻财，女占官鬼，同时看世应 |
-| 求财 | 妻财为用，子孙为财源，兄弟为劫财 |
-| 工作/考试/名位 | 官鬼、父母、世爻 |
-| 疾病 | 官鬼、世爻、子孙、父母视病因而定 |
-| 出行/行人 | 世应、用神、动爻、日月冲合 |
-
-### 第三阶段：学旺衰冲合空破
-
-核心顺序：
+### 6.3 school_comparison：流派比较
 
 ```text
-占事定位 → 用神 → 世应用神关系 → 日月旺衰 → 动爻生克 → 空破墓绝 → 变爻趋势 → 应期
+同一卦按默认纳甲、飞伏神、六神象意、南山真人风格分别分析，互相矛盾的地方全部标注。
 ```
 
-### 第四阶段：做案例复盘
+### 6.4 posthoc_learning：反馈学习
 
-每个案例至少记录：
-
-- 起卦时间
-- 起卦方式
-- 问题原文
-- 卦盘结构
-- 当时判断
-- 后验结果
-- 哪条判断对/错
-- 是否有混杂因素
-
----
-
-## 7. 迭代优化方法
-
-不要让 skill “自动学习一切”。建议采用人工验收的迭代：
-
-1. `fresh` 模式独立解卦。
-2. 事后把结果写入 `feedback_log.jsonl`。
-3. 每 20–30 个案例做一次 `summarize_learning.py` 汇总。
-4. 只把重复出现、方向稳定、反例少的经验写入 `memory/rule_bank.yaml`。
-5. 每次改 `SKILL.md` 后，用 `CODEX_TEST_PROMPTS.md` 做污染测试。
-
-不要做：
-
-- 不要把旧案例放进默认上下文。
-- 不要把所有古籍 md 一次性塞进 `SKILL.md`。
-- 不要让 Codex 每次都读完整古籍。
-- 不要把单次应验当成硬规则。
-
----
-
-## 8. 本地脚本烟测
-
-进入 skill 目录：
-
-```powershell
-cd "$env:USERPROFILE\.agents\skills\liuyao-iterative-divination"
-```
-
-检查 Python 脚本：
-
-```powershell
-python -m py_compile scripts\*.py
-```
-
-建索引：
-
-```powershell
-python scripts/ingest_books.py
-```
-
-没有放入古籍时，脚本会提示没有可索引文件；这是正常的。放入 md/txt 后重新运行即可。
-
-基础卦盘记录示例：
-
-```powershell
-python scripts/liuyao_basic_chart.py --lines 7,8,9,7,8,6 --question "测试卦" --date-ganzhi "甲子日" --month-branch "午"
+```text
+把这个案例作为 posthoc_learning 复盘，标注支持/部分支持/反向/无法验证/样本异常，不要直接改规则。
 ```
 
 ---
 
-## 9. GitHub 上传注意事项
+## 7. 流派冲突输出格式
 
-可以上传：
+遇到矛盾时，必须使用类似格式：
 
-- `SKILL.md`
-- `README.md`
-- `scripts/`
-- `resources/templates/`
-- `resources/schemas/`
-- 空的 `memory/` 结构
+| 序号 | 流派/体系 | 主要来源 | 判断结果 | 证据链 | 与其他体系的冲突点 | 置信度 |
+|---|---|---|---|---|---|---|
+| A | 默认纳甲六爻 | 增删卜易/卜筮正宗 | ... | 用神、月日、动变... | 与象意派不同 | 高/中/低 |
+| B | 飞伏神取法 | 飞伏神规则 | ... | 伏神、飞神、月日... | 与明现用神取法不同 | 中 |
+| C | 六神象意派 | 六神象意/现代案例 | ... | 青龙/白虎/玄武... | 与主结构方向不同 | 低 |
+| D | 现代案例派 | 南山真人卦例 | ... | 象意展开、类案参考... | 不作为主判据 | 低 |
 
-不要上传：
-
-- 真实问卦案例
-- 反馈记录
-- 含个人信息的截图/OCR
-- 未确认版权状态的古籍全文
-- 本地生成的大索引文件
-
-公开仓库建议只提供目录和模板，古籍文本由用户自己放入本地。
+最后可以给“默认采用判断”，但不能删除其他流派结果。
 
 ---
 
-## 10. 常见问题
+## 8. 案例与反馈
 
-### Q1：为什么默认不参考旧案例？
+添加案例：
 
-因为旧案例会产生“类案污染”。模型容易把相似问题的旧结论迁移到新卦，导致没有先完成独立判断。
+```powershell
+python scripts/add_case.py --file examples/sample_case.json
+```
 
-### Q2：古籍越多越好吗？
+添加反馈：
 
-不是。六爻书很多，但断法体系有差异。建议先用 3–5 本核心书做稳定索引，再逐步加入汇编类文本。
+```powershell
+python scripts/update_feedback.py --case-id CASE_ID --outcome partial --note "实际结果..."
+```
 
-### Q3：md 和 txt 哪个更好？
+汇总反馈：
 
-校对后的 md 更好，因为标题层级能保留章节结构；如果 OCR 很乱，先转 txt 清洗也可以。
+```powershell
+python scripts/summarize_learning.py
+```
 
-### Q4：能不能接入现成排盘库？
+清空运行记忆：
 
-可以。推荐把外部排盘库当“计算层”，本 skill 作为“解释层 + 检索层 + 反馈层”。不要让 LLM 自己凭空装卦。
+```powershell
+python scripts/reset_runtime_memory.py --backup
+```
+
+---
+
+## 9. 重要原则
+
+- 核心古籍规则优先于现代案例。
+- 现代案例默认不检索。
+- 用户指定流派时，优先列出该流派，但仍要说明默认体系是否同意。
+- 六神、神煞、纳音、爻位和象意只作辅助，不能推翻主结构。
+- 用神、世应、月日、动变、生克制化是主证据链。
+- 遇到流派矛盾，宁可并列展示，也不要假装统一。

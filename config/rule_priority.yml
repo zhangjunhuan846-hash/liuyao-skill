@@ -1,0 +1,33 @@
+# 规则优先级
+# 注意：优先级决定默认采用路径，但不允许删除其他流派结果。
+
+priority_order:
+  - user_specified_school
+  - explicit_question_type_rule
+  - default_najia_core_structure
+  - multi_core_classic_consensus
+  - original_text_rule
+  - later_commentary
+  - auxiliary_system
+  - modern_case
+  - symbolic_extension
+
+core_structure_order:
+  - question_type
+  - yongshen
+  - shi_ying
+  - month_day_strength
+  - moving_changing_lines
+  - source_avoid_enemy_spirit
+  - clash_combine_punishment_harm
+  - emptiness_tomb_absolute
+  - feifushen
+  - liushen_symbolic
+  - shensha_nayin
+  - case_analogy
+
+confidence_rules:
+  high: 用神、世应、月日、动变、生克制化至少三类核心证据同向。
+  medium: 两类核心证据同向，或核心证据与辅助象意基本一致。
+  low: 主要来自六神、爻位、神煞、纳音、现代案例、单一口诀或象意扩展。
+  insufficient: 卦信息缺失，或规则来源不清，无法稳定判断。

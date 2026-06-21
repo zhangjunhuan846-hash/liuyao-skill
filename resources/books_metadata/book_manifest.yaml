@@ -1,26 +1,64 @@
-# 六爻古籍清单模板。source_file 按你本地实际文件名填写。
+# 六爻古籍/流派清单模板。source_file 按你本地实际文件名填写。
 books:
+  - title: 火珠林
+    priority: core
+    school: 传统纳甲六爻主体系
+    source_type: core_classic
+    authority_level: A
+    retrieval_default: true
+    recommended_path: knowledge/01_core_classics/火珠林_麻衣道者底本_core.md
+    roles: [纳甲源流, 古法, 基础规则, 六亲, 世应]
+
+  - title: 黄金策
+    priority: core
+    school: 黄金策分类占断体系
+    source_type: core_classic
+    authority_level: A
+    retrieval_default: true
+    recommended_path: knowledge/01_core_classics/黄金策_core.md
+    roles: [分类占断, 断语, 占事专题, 用神]
+
   - title: 增删卜易
     priority: core
-    recommended_path: resources/books_corrected/增删卜易.md
+    school: 增删卜易实占体系
+    source_type: core_classic
+    authority_level: A
+    retrieval_default: true
+    recommended_path: knowledge/01_core_classics/增删卜易_core.md
     roles: [用神, 旺衰, 动爻, 应期, 分类占断, 案例]
+
   - title: 卜筮正宗
     priority: core
-    recommended_path: resources/books_corrected/卜筮正宗.md
-    roles: [纳甲, 六亲, 世应, 用神, 分类占断]
+    school: 卜筮正宗体系
+    source_type: core_classic
+    authority_level: A
+    retrieval_default: true
+    recommended_path: knowledge/01_core_classics/卜筮正宗_core.md
+    roles: [纳甲, 六亲, 世应, 用神, 分类占断, 流程校正]
+
   - title: 易隐
-    priority: core
-    recommended_path: resources/books_corrected/易隐.md
+    priority: auxiliary
+    school: 辅助古籍体系
+    source_type: auxiliary_system
+    authority_level: B
+    retrieval_default: conditional
+    recommended_path: knowledge/02_auxiliary_systems/易隐_auxiliary.md
     roles: [断法体系, 象意, 分类占断]
-  - title: 黄金策
-    priority: topic_rules
-    recommended_path: resources/books_corrected/黄金策.md
-    roles: [分类占断, 断语, 占事专题]
+
   - title: 断易天机
-    priority: case_reference
-    recommended_path: resources/books_corrected/断易天机.md
+    priority: auxiliary
+    school: 辅助古籍体系
+    source_type: auxiliary_system
+    authority_level: B
+    retrieval_default: conditional
+    recommended_path: knowledge/02_auxiliary_systems/断易天机_auxiliary.md
     roles: [案例, 应期, 取象]
-  - title: 火珠林
-    priority: historical
-    recommended_path: resources/books_corrected/火珠林.md
-    roles: [纳甲源流, 古法, 基础规则]
+
+  - title: 南山真人卦例
+    priority: modern_case
+    school: 现代案例派
+    source_type: modern_case
+    authority_level: C
+    retrieval_default: false
+    recommended_path: knowledge/03_modern_cases/南山真人卦例_modern_case.md
+    roles: [现代案例, 象意展开, 反馈案例]

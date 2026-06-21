@@ -1,0 +1,48 @@
+# 检索策略
+
+retrieval_policy:
+  reset_each_reading: true
+  use_previous_cases_by_default: false
+  modern_cases_default: false
+  misc_untrusted_default: false
+
+  default_sources:
+    - knowledge/00_basic_terms
+    - knowledge/01_core_classics
+    - knowledge/04_conflict_registry
+
+  conditional_sources:
+    feifushen:
+      trigger:
+        - 用神不上卦
+        - 伏神
+        - 飞神
+        - 用户要求飞伏神
+      paths:
+        - knowledge/02_auxiliary_systems/飞伏神规则.md
+
+    liushen_symbolic:
+      trigger:
+        - 用户要求象意
+        - 用户要求六神
+        - 需要解释细节象
+      paths:
+        - knowledge/02_auxiliary_systems/六神象意.md
+
+    modern_cases:
+      trigger:
+        - 用户明确要求南山真人
+        - 用户要求现代案例派
+        - 用户要求卦例复盘
+      paths:
+        - knowledge/03_modern_cases
+
+conflict_detection:
+  trigger_if:
+    - 同一占事出现不同用神
+    - 同一用神旺衰判断相反
+    - 明现用神与伏神取法相反
+    - 动变判断与六神象意相反
+    - 古籍规则与现代案例不同
+    - 应期候选不一致
+  required_output: list_all_schools_with_labels

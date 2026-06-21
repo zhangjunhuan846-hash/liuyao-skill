@@ -1,0 +1,111 @@
+# 六爻流派注册表
+# authority_level: A=核心古籍/主体系；B=辅助古籍/稳定规则；C=现代案例/现代断法；D=杂项/未校资料
+# default_enabled: 是否默认检索
+
+schools:
+  default_najia:
+    name: 传统纳甲六爻主体系
+    aliases:
+      - 纳甲六爻
+      - 增删卜易体系
+      - 卜筮正宗体系
+    core_sources:
+      - 火珠林
+      - 黄金策
+      - 增删卜易
+      - 卜筮正宗
+    authority_level: A
+    default_enabled: true
+    role: 主判据
+    notes: 用户未指定流派时默认采用。
+
+  huozhulin_foundational:
+    name: 火珠林基础纳甲体系
+    aliases:
+      - 火珠林
+      - 麻衣道者火珠林
+    authority_level: A
+    default_enabled: true
+    role: 基础规则与源流参考
+    notes: 用于纳甲、六亲、世应等基础框架。
+
+  huangjince_classification:
+    name: 黄金策分类占断体系
+    aliases:
+      - 黄金策
+    authority_level: A
+    default_enabled: true
+    role: 分类占事规则
+    notes: 用于占事类型、用神和分类断法参考。
+
+  zengshan_buyi:
+    name: 增删卜易实占体系
+    aliases:
+      - 增删卜易
+    authority_level: A
+    default_enabled: true
+    role: 主判据与卦例校验
+    notes: 可用于实占规则，但卦例细节不得直接套用。
+
+  bushi_zhengzong:
+    name: 卜筮正宗体系
+    aliases:
+      - 卜筮正宗
+    authority_level: A
+    default_enabled: true
+    role: 主判据与流程校正
+    notes: 用于标准流程、用神、旺衰、动变、生克制化。
+
+  feifushen:
+    name: 飞伏神取法
+    aliases:
+      - 飞神伏神
+      - 伏神
+      - 飞伏
+    authority_level: B
+    default_enabled: conditional
+    role: 辅助判据
+    notes: 用神不现或伏藏关键时调用；不得无条件压过明现用神。
+
+  liushen_symbolic:
+    name: 六神象意派
+    aliases:
+      - 六神
+      - 青龙白虎朱雀玄武勾陈腾蛇
+      - 象意派
+    authority_level: B
+    default_enabled: conditional
+    role: 象意补充
+    notes: 只作细节和象意补充，不得推翻主结构。
+
+  shensha_nayin:
+    name: 神煞纳音辅助法
+    aliases:
+      - 神煞
+      - 纳音
+      - 十二长生
+    authority_level: C
+    default_enabled: false
+    role: 辅助象意
+    notes: 默认不作为主判据。
+
+  nanshan_zhenren:
+    name: 南山真人现代案例派
+    aliases:
+      - 南山真人
+      - 南山真人卦例
+    authority_level: C
+    default_enabled: false
+    role: 现代卦例参考
+    notes: 仅在用户明确要求时调用；不得作为基础规则来源。
+
+  misc_untrusted:
+    name: 杂项未校资料
+    aliases:
+      - 秘籍合集
+      - 网络合集
+      - 未校OCR
+    authority_level: D
+    default_enabled: false
+    role: 手动参考
+    notes: 默认不检索，只能人工核验。

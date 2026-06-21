@@ -1,9 +1,10 @@
-version: 0.1.0
+version: 0.2.0
 status: seed_rules_only
 notes:
   - 本文件只记录经过多次案例验证、可复查的规则摘要。
   - 不要把单个案例的结果直接上升为规则。
-  - 每条规则必须标注适用条件、反例、来源依据和最近验证时间。
+  - 每条规则必须标注适用条件、反例、来源依据、所属流派和最近验证时间。
+  - 若规则之间存在冲突，不得覆盖旧规则；应在 conflict_registry 中登记并列关系。
 rule_groups:
   yongshen_selection: []
   moving_line_priority: []
@@ -11,4 +12,6 @@ rule_groups:
   six_spirits: []
   date_month_strength: []
   emptiness_conflict_combination: []
+  feifushen: []
+  school_conflicts: []
   topic_specific: []
