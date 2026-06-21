@@ -1,64 +1,173 @@
-# 六爻古籍/流派清单模板。source_file 按你本地实际文件名填写。
+# liuyao_book_manifest_patch.yaml
+# 建议放置：resources/books_metadata/book_manifest_patch.yaml
+# 作用：给古籍/现代案例/未校OCR建立元数据标注模板，避免全部变成“未标注 book_text”。
+# 使用方式：把 raw_md 中的书按 title_pattern 对应上，然后在 ingest 时写入 source_type / authority_level。
+
+version: "2026-06-21"
+metadata_fields_required:
+  - title
+  - title_pattern
+  - school
+  - source_type
+  - authority_level
+  - retrieval_default
+  - use_mode
+  - notes
+
+authority_level_definition:
+  A: "核心古籍/主体系，默认可检索，可作为规则来源"
+  B: "辅助古籍/专题规则，默认或条件检索，可作辅助规则"
+  C: "现代案例/现代断法，默认不检索，仅用户明确要求时调用"
+  D: "杂项/未校/来源不明，默认不检索，只作人工核验"
+
+source_type_definition:
+  core_classic: "核心规则古籍"
+  auxiliary_system: "辅助系统或专题规则"
+  conflict_registry: "流派冲突登记表"
+  modern_case: "现代案例或卦例"
+  misc_untrusted: "未校资料/来源不明"
+  raw_ocr_reference: "未清洗OCR，仅低权重参考"
+
 books:
-  - title: 火珠林
-    priority: core
-    school: 传统纳甲六爻主体系
-    source_type: core_classic
-    authority_level: A
+  - title: "火珠林"
+    title_pattern: ["火珠林"]
+    school: "火珠林基础纳甲体系"
+    source_type: "core_classic"
+    authority_level: "A"
     retrieval_default: true
-    recommended_path: knowledge/01_core_classics/火珠林_麻衣道者底本_core.md
-    roles: [纳甲源流, 古法, 基础规则, 六亲, 世应]
+    use_mode: "rule_source"
+    notes: "纳甲、六亲、世应等基础框架来源。"
 
-  - title: 黄金策
-    priority: core
-    school: 黄金策分类占断体系
-    source_type: core_classic
-    authority_level: A
+  - title: "黄金策"
+    title_pattern: ["黄金策"]
+    school: "黄金策分类占断体系"
+    source_type: "core_classic"
+    authority_level: "A"
     retrieval_default: true
-    recommended_path: knowledge/01_core_classics/黄金策_core.md
-    roles: [分类占断, 断语, 占事专题, 用神]
+    use_mode: "rule_source"
+    notes: "分类占事、取用、断语的重要来源。"
 
-  - title: 增删卜易
-    priority: core
-    school: 增删卜易实占体系
-    source_type: core_classic
-    authority_level: A
+  - title: "增删卜易"
+    title_pattern: ["增删卜易", "野鹤", "野鹤老人"]
+    school: "增删卜易实占体系"
+    source_type: "core_classic"
+    authority_level: "A"
     retrieval_default: true
-    recommended_path: knowledge/01_core_classics/增删卜易_core.md
-    roles: [用神, 旺衰, 动爻, 应期, 分类占断, 案例]
+    use_mode: "rule_source_with_cases"
+    notes: "主判据和实占校验；卦例不得机械套用。"
 
-  - title: 卜筮正宗
-    priority: core
-    school: 卜筮正宗体系
-    source_type: core_classic
-    authority_level: A
+  - title: "卜筮正宗"
+    title_pattern: ["卜筮正宗"]
+    school: "卜筮正宗体系"
+    source_type: "core_classic"
+    authority_level: "A"
     retrieval_default: true
-    recommended_path: knowledge/01_core_classics/卜筮正宗_core.md
-    roles: [纳甲, 六亲, 世应, 用神, 分类占断, 流程校正]
+    use_mode: "rule_source"
+    notes: "标准流程、用神、旺衰、动变、生克制化。"
 
-  - title: 易隐
-    priority: auxiliary
-    school: 辅助古籍体系
-    source_type: auxiliary_system
-    authority_level: B
-    retrieval_default: conditional
-    recommended_path: knowledge/02_auxiliary_systems/易隐_auxiliary.md
-    roles: [断法体系, 象意, 分类占断]
+  - title: "易隐"
+    title_pattern: ["易隐"]
+    school: "易隐体系"
+    source_type: "auxiliary_system"
+    authority_level: "B"
+    retrieval_default: true
+    use_mode: "auxiliary_rule"
+    notes: "可作为分类断法和象意辅助。"
 
-  - title: 断易天机
-    priority: auxiliary
-    school: 辅助古籍体系
-    source_type: auxiliary_system
-    authority_level: B
-    retrieval_default: conditional
-    recommended_path: knowledge/02_auxiliary_systems/断易天机_auxiliary.md
-    roles: [案例, 应期, 取象]
+  - title: "易冒"
+    title_pattern: ["易冒"]
+    school: "易冒体系"
+    source_type: "auxiliary_system"
+    authority_level: "B"
+    retrieval_default: true
+    use_mode: "auxiliary_rule"
+    notes: "辅助断法，遇主体系冲突时并列标注。"
 
-  - title: 南山真人卦例
-    priority: modern_case
-    school: 现代案例派
-    source_type: modern_case
-    authority_level: C
+  - title: "断易天机"
+    title_pattern: ["断易天机"]
+    school: "断易天机体系"
+    source_type: "auxiliary_system"
+    authority_level: "B"
+    retrieval_default: true
+    use_mode: "auxiliary_rule_and_cases"
+    notes: "应期、案例、专题断法参考。"
+
+  - title: "易林补遗"
+    title_pattern: ["易林补遗"]
+    school: "易林补遗体系"
+    source_type: "auxiliary_system"
+    authority_level: "B"
+    retrieval_default: true
+    use_mode: "auxiliary_rule"
+    notes: "分类占断、取象可参考。"
+
+  - title: "筮府珠林"
+    title_pattern: ["筮府珠林"]
+    school: "筮府珠林专题体系"
+    source_type: "auxiliary_system"
+    authority_level: "B"
+    retrieval_default: true
+    use_mode: "topic_rule_source"
+    notes: "专题卷可按婚姻、求财、科举、占病、失盗等主题检索。"
+
+  - title: "通玄断易大全"
+    title_pattern: ["通玄断易大全"]
+    school: "通玄断易体系"
+    source_type: "auxiliary_system"
+    authority_level: "B"
+    retrieval_default: true
+    use_mode: "auxiliary_rule"
+    notes: "辅助断法来源，默认权重低于四部核心。"
+
+  - title: "京氏易传"
+    title_pattern: ["京氏易传", "京房"]
+    school: "京氏易源流"
+    source_type: "auxiliary_system"
+    authority_level: "B"
     retrieval_default: false
-    recommended_path: knowledge/03_modern_cases/南山真人卦例_modern_case.md
-    roles: [现代案例, 象意展开, 反馈案例]
+    use_mode: "historical_reference"
+    notes: "源流和纳甲背景参考，不直接替代六爻实占主线。"
+
+  - title: "周易古筮考"
+    title_pattern: ["周易古筮考"]
+    school: "古筮源流研究"
+    source_type: "auxiliary_system"
+    authority_level: "B"
+    retrieval_default: false
+    use_mode: "historical_reference"
+    notes: "古筮研究资料；默认不参与具体断卦主判断。"
+
+  - title: "南山真人卦例"
+    title_pattern: ["南山真人", "南山"]
+    school: "南山真人现代案例派"
+    source_type: "modern_case"
+    authority_level: "C"
+    retrieval_default: false
+    use_mode: "case_analogy_only"
+    notes: "仅用户明确要求现代案例/类案时调用；不得覆盖当前卦盘证据。"
+
+  - title: "未校OCR资料"
+    title_pattern: ["未校", "秘籍", "合集", "杂项"]
+    school: "杂项未校资料"
+    source_type: "misc_untrusted"
+    authority_level: "D"
+    retrieval_default: false
+    use_mode: "manual_reference_only"
+    notes: "默认不检索，必须人工核验。"
+
+duplicate_groups:
+  - canonical_title: "黄金策"
+    patterns: ["黄金策", "刘伯温-黄金策", "黄金策(木刻本)"]
+    keep_strategy: "prefer_corrected_then_longest_then_latest"
+
+  - canonical_title: "卜筮正宗"
+    patterns: ["卜筮正宗", "卜筮正宗 白话全译", "卜筮正宗00", "卜筮正宗01"]
+    keep_strategy: "prefer_corrected_then_complete_volume_set"
+
+  - canonical_title: "增删卜易"
+    patterns: ["增删卜易", "野鹤卜易", "野鹤老人占卜全书"]
+    keep_strategy: "allow_multiple_volumes_but_dedup_same_chunk"
+
+  - canonical_title: "易隐"
+    patterns: ["易隐", "曹九锡-易隐"]
+    keep_strategy: "prefer_corrected_then_longest"

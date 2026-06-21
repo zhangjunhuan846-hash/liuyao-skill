@@ -2,32 +2,42 @@
   {
     "path": ".gitignore",
     "suffix": "",
-    "size_bytes": 613
+    "size_bytes": 1141
   },
   {
     "path": "CODEX_TEST_PROMPTS.md",
     "suffix": ".md",
-    "size_bytes": 1852
+    "size_bytes": 6665
+  },
+  {
+    "path": "PUBLIC_RELEASE_NOTES.md",
+    "suffix": ".md",
+    "size_bytes": 1099
   },
   {
     "path": "README.md",
     "suffix": ".md",
-    "size_bytes": 9979
+    "size_bytes": 11153
   },
   {
     "path": "README.zh-CN.md",
     "suffix": ".md",
-    "size_bytes": 9979
+    "size_bytes": 11153
   },
   {
     "path": "SKILL.md",
     "suffix": ".md",
-    "size_bytes": 14125
+    "size_bytes": 18183
   },
   {
     "path": "config/retrieval_policy.yml",
     "suffix": ".yml",
-    "size_bytes": 1202
+    "size_bytes": 3834
+  },
+  {
+    "path": "config/retrieval_policy_patch.yml",
+    "suffix": ".yml",
+    "size_bytes": 2400
   },
   {
     "path": "config/rule_priority.yml",
@@ -38,6 +48,11 @@
     "path": "config/school_registry.yml",
     "suffix": ".yml",
     "size_bytes": 2860
+  },
+  {
+    "path": "docs/skill_patch_xiangyi_topic_rules.md",
+    "suffix": ".md",
+    "size_bytes": 4189
   },
   {
     "path": "examples/sample_case.json",
@@ -77,27 +92,57 @@
   {
     "path": "knowledge/04_conflict_registry/六神象意冲突表.md",
     "suffix": ".md",
-    "size_bytes": 708
+    "size_bytes": 888
   },
   {
     "path": "knowledge/04_conflict_registry/应期冲突表.md",
     "suffix": ".md",
-    "size_bytes": 667
+    "size_bytes": 841
   },
   {
     "path": "knowledge/04_conflict_registry/旺衰权重冲突表.md",
     "suffix": ".md",
-    "size_bytes": 796
+    "size_bytes": 976
   },
   {
     "path": "knowledge/04_conflict_registry/用神冲突表.md",
     "suffix": ".md",
-    "size_bytes": 1416
+    "size_bytes": 1590
   },
   {
     "path": "knowledge/04_conflict_registry/飞伏神冲突表.md",
     "suffix": ".md",
-    "size_bytes": 683
+    "size_bytes": 860
+  },
+  {
+    "path": "knowledge/05_xiangyi_registry/README.md",
+    "suffix": ".md",
+    "size_bytes": 284
+  },
+  {
+    "path": "knowledge/05_xiangyi_registry/xiangyi_registry.yml",
+    "suffix": ".yml",
+    "size_bytes": 14377
+  },
+  {
+    "path": "knowledge/06_topic_rules/README.md",
+    "suffix": ".md",
+    "size_bytes": 222
+  },
+  {
+    "path": "knowledge/06_topic_rules/topic_rules.yml",
+    "suffix": ".yml",
+    "size_bytes": 11201
+  },
+  {
+    "path": "manifest.json",
+    "suffix": ".json",
+    "size_bytes": 6911
+  },
+  {
+    "path": "memory/.gitkeep",
+    "suffix": "",
+    "size_bytes": 0
   },
   {
     "path": "memory/README.md",
@@ -105,34 +150,9 @@
     "size_bytes": 537
   },
   {
-    "path": "memory/casebook.jsonl",
-    "suffix": ".jsonl",
-    "size_bytes": 0
-  },
-  {
-    "path": "memory/feedback_log.jsonl",
-    "suffix": ".jsonl",
-    "size_bytes": 0
-  },
-  {
     "path": "memory/incoming_cases/.gitkeep",
     "suffix": "",
     "size_bytes": 0
-  },
-  {
-    "path": "memory/rule_bank.yaml",
-    "suffix": ".yaml",
-    "size_bytes": 620
-  },
-  {
-    "path": "memory/unresolved_questions.md",
-    "suffix": ".md",
-    "size_bytes": 132
-  },
-  {
-    "path": "memory/version_log.md",
-    "suffix": ".md",
-    "size_bytes": 101
   },
   {
     "path": "notes/.gitkeep",
@@ -155,6 +175,11 @@
     "size_bytes": 167
   },
   {
+    "path": "resources/books_corrected/.gitkeep",
+    "suffix": "",
+    "size_bytes": 0
+  },
+  {
     "path": "resources/books_corrected/README.md",
     "suffix": ".md",
     "size_bytes": 387
@@ -162,7 +187,12 @@
   {
     "path": "resources/books_metadata/book_manifest.yaml",
     "suffix": ".yaml",
-    "size_bytes": 2160
+    "size_bytes": 5917
+  },
+  {
+    "path": "resources/books_processed/.gitkeep",
+    "suffix": "",
+    "size_bytes": 0
   },
   {
     "path": "resources/books_processed/README.md",
@@ -170,9 +200,19 @@
     "size_bytes": 110
   },
   {
+    "path": "resources/books_raw_md/.gitkeep",
+    "suffix": "",
+    "size_bytes": 0
+  },
+  {
     "path": "resources/books_raw_md/README.md",
     "suffix": ".md",
     "size_bytes": 364
+  },
+  {
+    "path": "resources/index/.gitkeep",
+    "suffix": "",
+    "size_bytes": 0
   },
   {
     "path": "resources/index/README.md",
@@ -187,7 +227,12 @@
   {
     "path": "resources/schemas/feedback_schema.json",
     "suffix": ".json",
-    "size_bytes": 630
+    "size_bytes": 5771
+  },
+  {
+    "path": "resources/schemas/feedback_schema_v2.json",
+    "suffix": ".json",
+    "size_bytes": 5771
   },
   {
     "path": "resources/templates/conflict_卦例输入模板.md",
@@ -203,6 +248,11 @@
     "path": "resources/templates/conflict_解卦输出模板.md",
     "suffix": ".md",
     "size_bytes": 1327
+  },
+  {
+    "path": "resources/templates/fresh_output_template_v2.md",
+    "suffix": ".md",
+    "size_bytes": 4736
   },
   {
     "path": "resources/templates/input_template.md",
@@ -273,6 +323,11 @@
     "path": "scripts/update_feedback.py",
     "suffix": ".py",
     "size_bytes": 848
+  },
+  {
+    "path": "scripts/validate_pack.py",
+    "suffix": ".py",
+    "size_bytes": 8106
   },
   {
     "path": "templates/卦例输入模板.md",

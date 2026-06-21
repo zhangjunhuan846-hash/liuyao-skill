@@ -1,0 +1,75 @@
+# liuyao_retrieval_policy_patch.yml
+# 建议放置：config/retrieval_policy_patch.yml
+# 作用：在原 retrieval_policy.yml 基础上增加“去重、权重、默认禁用现代案例/杂项”的可执行规则。
+# 使用方式：可手动合并进 config/retrieval_policy.yml，或让脚本读取本文件覆盖默认策略。
+
+version: "2026-06-21"
+retrieval_policy_patch:
+  source_type_weights:
+    core_classic: 1.00
+    conflict_registry: 0.92
+    auxiliary_system: 0.78
+    book_text: 0.68
+    modern_case: 0.35
+    misc_untrusted: 0.15
+
+  authority_level_weights:
+    A: 1.00
+    B: 0.78
+    C: 0.45
+    D: 0.18
+
+  default_allowed_source_types:
+    - core_classic
+    - conflict_registry
+    - auxiliary_system
+    - book_text
+
+  default_blocked_source_types:
+    - modern_case
+    - misc_untrusted
+
+  allow_modern_case_only_when_user_says:
+    - "参考南山真人"
+    - "现代案例"
+    - "卦例复盘"
+    - "类案"
+    - "参考旧案"
+
+  allow_misc_untrusted_only_when_user_says:
+    - "未校资料也列出"
+    - "杂项也查"
+    - "所有来源都要"
+
+  deduplication:
+    max_chunks_per_book: 2
+    max_chunks_per_title: 3
+    max_same_source_file: 2
+    min_text_jaccard_distance: 0.18
+    normalize_title_rules:
+      - "删除 MinerU_markdown_ 前缀"
+      - "删除 pdf 后的 UUID"
+      - "合并同书不同 OCR 版本"
+      - "同名同卷只保留得分最高的前 2 个 chunk"
+
+  query_expansion:
+    yongshen: ["用神", "取用", "六亲", "世应", "主象"]
+    strength: ["旺衰", "月建", "日辰", "生扶", "冲克", "空破", "墓绝"]
+    moving_lines: ["动爻", "变爻", "化进", "化退", "回头生", "回头克"]
+    feifushen: ["伏神", "飞神", "飞伏", "用神不上卦"]
+    xiangyi: ["象意", "六神", "爻位", "卦象", "取象"]
+    timing: ["应期", "值日", "冲合", "出空", "逢合", "逢冲"]
+
+  fresh_mode_hard_rules:
+    must_not_read:
+      - memory/casebook.jsonl
+      - memory/feedback_log.jsonl
+      - memory/incoming_cases/
+    must_not_use_source_types_by_default:
+      - modern_case
+      - misc_untrusted
+    required_final_note: "本次为 fresh 模式，未调用历史案例。"
+
+  ranking_formula_note: >
+    final_score = keyword_score * source_type_weight * authority_level_weight * freshness_or_quality_weight;
+    after ranking, apply title/source-file deduplication before returning passages.

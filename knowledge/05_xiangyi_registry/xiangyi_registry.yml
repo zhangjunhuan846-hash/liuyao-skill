@@ -1,0 +1,328 @@
+# liuyao_xiangyi_registry.yml
+# 建议放置：knowledge/05_xiangyi_registry/xiangyi_registry.yml
+# 作用：把“取象”从自由发挥改成结构化、可限制、可追溯的辅助判据。
+# 原则：象意只补充细节，不得单独推翻用神、世应、月日、动变、生克制化。
+
+version: "2026-06-21"
+use_mode: "auxiliary_symbolic_registry"
+default_confidence: "low_to_medium"
+core_guardrails:
+  - "取象必须依附于占事类型、用神、世应、动爻、月日旺衰之一，不得脱离卦盘结构空泛发挥。"
+  - "六神、爻位、卦象、纳音、神煞属于辅助判据；若与主结构相反，必须并列输出冲突，不得强行覆盖。"
+  - "涉及疾病、诉讼、投资、婚姻重大决策时，只能作为文化分析和风险提示，不得给出确定性建议。"
+  - "每条象意输出必须包含：象意来源、触发条件、支持证据、限制条件、置信度。"
+
+output_schema:
+  required_fields:
+    - symbol_source
+    - image_meaning
+    - trigger_condition
+    - supporting_structure
+    - limitation
+    - confidence
+  example_row:
+    symbol_source: "玄武临应爻"
+    image_meaning: "对方信息不透明、暗中因素、隐情"
+    trigger_condition: "应爻代表对方，且玄武临之"
+    supporting_structure: "若应爻又逢空、受克、伏藏，则隐情象增强"
+    limitation: "不得单凭玄武断欺骗、出轨或违法"
+    confidence: "低-中"
+
+six_relatives:
+  parents:
+    name: "父母爻"
+    core_domains:
+      - "文书、合同、证件、手续、申请材料"
+      - "房屋、车辆、衣物、庇护、保护"
+      - "长辈、老师、导师、单位制度、官方流程"
+      - "学业、论文、考试资料、录取/审批材料"
+    topic_extensions:
+      exam_academic: "成绩材料、资格证明、录取通知、导师/学校制度"
+      research_project: "文献、方案、实验记录、论文稿件、基金/项目文书"
+      love_relationship: "消息凭证、承诺、现实条件、家庭意见"
+      career_job: "简历、offer、合同、编制、岗位制度"
+    positive_signs:
+      - "父母爻旺相生世：材料、手续、文书条件较有力"
+      - "父母爻动而化生世/合世：文书推进、流程有进展"
+    negative_signs:
+      - "父母爻空破受克：材料缺失、手续阻滞、消息不实或延期"
+      - "父母爻多现相冲：材料口径不一、信息来源混杂"
+    cannot_mean_alone:
+      - "不能单凭父母旺就断一定录取/签约，仍需看官鬼、世应和动变。"
+
+  siblings:
+    name: "兄弟爻"
+    core_domains:
+      - "同辈、朋友、竞争者、同行、合伙人"
+      - "分财、耗财、阻隔、竞争、资源分流"
+      - "自我同类、同门、同组成员"
+    topic_extensions:
+      wealth_business: "竞争者、成本、分利、破财因素"
+      love_relationship: "竞争对象、朋友介入、同辈意见"
+      career_job: "同岗位竞争者、同事、同门竞争"
+      research_project: "同方向竞争、课题组同门、重复选题风险"
+    positive_signs:
+      - "兄弟爻为喜且生世：同伴协助、同辈支持"
+      - "合作占中兄弟得位而不克财：团队协作有力"
+    negative_signs:
+      - "兄弟旺动克财：耗财、竞争、收益被分"
+      - "兄弟临应克世：对方阵营或竞争者压力明显"
+    cannot_mean_alone:
+      - "不能见兄弟即断破财；须看占事和兄弟是否实际克财、耗世。"
+
+  offspring:
+    name: "子孙爻"
+    core_domains:
+      - "结果产出、作品、学生、子女、宠物"
+      - "放松、娱乐、技术输出、解决问题"
+      - "克官鬼：减压、去病、制约压力源，也可能损名位/规则"
+    topic_extensions:
+      illness_health: "恢复力、药效、缓解因素"
+      career_job: "技能产出、作品集、技术成果；也可能抗拒规训"
+      research_project: "实验结果、论文产出、模型输出、可展示成果"
+      exam_academic: "解题能力、发挥状态；过旺可能松懈克官"
+      love_relationship: "轻松互动、愉悦感、表达欲；也可代表不愿受约束"
+    positive_signs:
+      - "子孙旺而生财/生世：产出、收益、缓解压力"
+      - "病占子孙旺动克官鬼：缓解病象或问题源"
+    negative_signs:
+      - "求名求官时子孙旺动克官：可能损名位、抗拒规则、发挥散漫"
+      - "子孙空破：结果不足、产出落空、缓解有限"
+    cannot_mean_alone:
+      - "子孙克官在不同占事中意义相反，必须先确认占事类型。"
+
+  wealth:
+    name: "妻财爻"
+    core_domains:
+      - "财富、资源、收益、成本、可支配物"
+      - "男性占感情时可作伴侣/对象的重要用神之一"
+      - "实验材料、样品资源、设备耗材、实际可用条件"
+    topic_extensions:
+      wealth_business: "利润、现金流、订单、可得资源"
+      love_relationship: "伴侣对象、现实吸引、物质条件；女性占恋爱不宜机械套用"
+      research_project: "实验资源、样品、经费、材料供应"
+      career_job: "薪酬、待遇、实际收益"
+    positive_signs:
+      - "财爻旺相生世：资源/收益对求测方有利"
+      - "财爻动化进或化生：资源增加、收益改善"
+    negative_signs:
+      - "财爻受兄弟旺动克：资源被分、成本上升、竞争耗财"
+      - "财爻空破：资源虚、收益不稳、承诺落空"
+    cannot_mean_alone:
+      - "感情占中不能只看妻财；还要看世应、官鬼、父母现实条件。"
+
+  officer_ghost:
+    name: "官鬼爻"
+    core_domains:
+      - "规则、压力、职位、名分、约束、风险、问题源"
+      - "女占感情时可作对象/伴侣的重要用神之一"
+      - "考试、申请、职位、审查、评审机制"
+      - "病占中常作病象/压力源，需谨慎表达"
+    topic_extensions:
+      exam_academic: "录取资格、名额、评审、考试压力"
+      career_job: "岗位、职位、领导、规则、offer名分"
+      love_relationship: "正式关系、责任、对象名分；女性占对象时权重提升"
+      lawsuit_dispute: "官司、规则、处罚、权威机构"
+      research_project: "审稿压力、导师/评审、项目规范、竞争约束"
+    positive_signs:
+      - "求名求职官鬼旺相生世：名位、资格、岗位机会较有力"
+      - "官鬼得父母相生：制度/文书支持名位"
+    negative_signs:
+      - "官鬼克世过重：压力、风险、阻碍明显"
+      - "病占官鬼旺而克世：病象/压力源较强，仅作风险提示，不能替代医疗判断"
+    cannot_mean_alone:
+      - "官鬼既可代表名位也可代表问题源，必须按占事类型分辨。"
+
+six_spirits:
+  qinglong:
+    name: "青龙"
+    images: ["喜庆", "顺遂", "礼物", "宴饮", "文雅", "体面", "生机", "贵气"]
+    strengthened_when:
+      - "临用神、世爻、应爻或关键动爻"
+      - "与生扶、合、化进等核心结构同向"
+    weakened_when:
+      - "所临之爻空破、受克、入墓"
+      - "仅有青龙而主结构不支持"
+    common_topics:
+      love_relationship: "好感、体面互动、礼物邀约、关系气氛较柔和"
+      career_job: "体面岗位、贵人、正式场合"
+      research_project: "顺利展示、论文包装、汇报场景"
+    caution: "青龙不等于一定吉；若临忌神旺动，可能是表面好看但实质耗损。"
+    default_confidence: "低-中"
+
+  zhuque:
+    name: "朱雀"
+    images: ["语言", "消息", "争论", "文书", "表达", "传播", "口舌", "文本"]
+    strengthened_when:
+      - "临父母、应爻、动爻、通信相关用神"
+      - "占事本身与消息、论文、面试、沟通有关"
+    weakened_when:
+      - "非沟通类占事且无动爻支持"
+    common_topics:
+      love_relationship: "聊天、解释、争吵、朋友圈/社交媒体信息"
+      exam_academic: "答辩、面试、材料表达、论文文本"
+      career_job: "面试、邮件、合同话术"
+    caution: "朱雀临凶不必然是吵架；须看是否克世、冲应、动化凶。"
+    default_confidence: "低-中"
+
+  gouteng:
+    name: "勾陈"
+    images: ["迟滞", "牵连", "土地", "旧事", "稳定", "沉重", "手续", "积压"]
+    strengthened_when:
+      - "临父母、兄弟、墓库、土爻、静爻"
+      - "占事涉及房产、手续、长期关系、积压问题"
+    common_topics:
+      career_job: "流程慢、制度约束、旧关系牵连"
+      research_project: "历史数据、旧课题、基础工作、重复劳动"
+      love_relationship: "旧事未解、关系拖延、现实阻力"
+    caution: "勾陈不是纯凶；若占稳定、房产、长期积累，可为稳定象。"
+    default_confidence: "低-中"
+
+  tengshe:
+    name: "腾蛇"
+    images: ["疑虑", "缠绕", "虚惊", "复杂", "想象", "焦虑", "反复", "异常"]
+    strengthened_when:
+      - "临官鬼、玄武、空亡、回头克、反复动变"
+      - "占事涉及心理疑虑、误会、复杂局面"
+    common_topics:
+      love_relationship: "猜疑、暧昧不清、误会、心理拉扯"
+      research_project: "模型不稳定、异常值、解释复杂、假阳性风险"
+      illness_health: "不安与症状想象，仅可提示就医核实，不可诊断"
+    caution: "腾蛇象容易过度心理化，必须有结构证据支持。"
+    default_confidence: "低"
+
+  baihu:
+    name: "白虎"
+    images: ["冲突", "伤害", "强压", "急迫", "病痛", "损耗", "强硬", "风险"]
+    strengthened_when:
+      - "临官鬼、忌神、动爻，且克世/克用"
+      - "遇冲、刑、破、回头克等结构"
+    common_topics:
+      lawsuit_dispute: "强硬冲突、处罚、损伤风险"
+      career_job: "高压、强势领导、裁撤/竞争压力"
+      love_relationship: "激烈冲突、伤人言行"
+      illness_health: "病痛风险提示，不能替代医学判断"
+    caution: "白虎临用神不必然凶，可能代表强行动力或急迫变化。"
+    default_confidence: "低-中"
+
+  xuanwu:
+    name: "玄武"
+    images: ["隐情", "暗中", "暧昧", "欺瞒可能", "私下", "流动", "欲望", "不透明"]
+    strengthened_when:
+      - "临应爻、用神、动爻、伏神、空亡"
+      - "占事涉及隐私、关系、财物流动、暗中变化"
+    common_topics:
+      love_relationship: "隐情、暧昧、不透明联系，但不能单凭此断背叛"
+      wealth_business: "账目不清、暗耗、隐性成本"
+      research_project: "数据暗误差、未披露变量、来源不透明"
+    caution: "玄武不得单独推出严重道德指控；必须有应爻/用神受克、伏藏、空破等证据。"
+    default_confidence: "低"
+
+line_positions:
+  first_line:
+    name: "初爻"
+    images: ["起点", "基层", "足下", "基础", "初始条件", "隐微处"]
+    topics:
+      research_project: "基础数据、原始样品、初始假设"
+      career_job: "基层岗位、入门阶段"
+  second_line:
+    name: "二爻"
+    images: ["内在执行", "家宅", "身体内部", "实际操作", "稳定位置"]
+    topics:
+      research_project: "实验执行层、样品制备、日常操作"
+  third_line:
+    name: "三爻"
+    images: ["关口", "进退", "风险点", "过渡", "内外交界"]
+    topics:
+      research_project: "方案转折、关键瓶颈、由学习到产出的门槛"
+  fourth_line:
+    name: "四爻"
+    images: ["外部环境", "上级门槛", "近君位", "外界评价"]
+    topics:
+      career_job: "主管/平台环境"
+      research_project: "导师、评审、外部合作方"
+  fifth_line:
+    name: "五爻"
+    images: ["核心位置", "主导者", "权威", "结果中心", "平台"]
+    topics:
+      exam_academic: "录取/评审中心、学校平台"
+      career_job: "领导、公司核心岗位"
+  sixth_line:
+    name: "上爻"
+    images: ["终局", "远方", "高处", "边界", "过度", "后期结果"]
+    topics:
+      research_project: "长期延伸、论文最终形态、博士阶段"
+
+branches:
+  zi:
+    name: "子水"
+    images: ["流动", "信息", "夜间", "智慧", "冷", "隐性资源"]
+  chou:
+    name: "丑土"
+    images: ["库", "湿土", "迟滞", "积累", "旧资源"]
+  yin:
+    name: "寅木"
+    images: ["生发", "启动", "规划", "扩张", "春初"]
+  mao:
+    name: "卯木"
+    images: ["文雅", "生长", "关系", "柔和", "门径"]
+  chen:
+    name: "辰土"
+    images: ["水库", "变化前的积压", "复杂土", "中介"]
+  si:
+    name: "巳火"
+    images: ["显露", "热", "技术", "传播", "转换"]
+  wu:
+    name: "午火"
+    images: ["高热", "公开", "名声", "表现", "强烈"]
+  wei:
+    name: "未土"
+    images: ["木库", "收束", "条件整合", "未完成"]
+  shen:
+    name: "申金"
+    images: ["规则", "工具", "执行", "金属", "转折"]
+  you:
+    name: "酉金"
+    images: ["精细", "结果", "审美", "收敛", "评价"]
+  xu:
+    name: "戌土"
+    images: ["火库", "制度", "封闭", "终止", "守成"]
+  hai:
+    name: "亥水"
+    images: ["远方", "暗流", "学术", "流动性", "跨界"]
+
+trigrams:
+  qian:
+    name: "乾"
+    images: ["天", "父", "领导", "规则", "刚健", "高位"]
+  kun:
+    name: "坤"
+    images: ["地", "母", "承载", "资源", "包容", "实际条件"]
+  zhen:
+    name: "震"
+    images: ["动", "雷", "启动", "震荡", "突发"]
+  xun:
+    name: "巽"
+    images: ["风", "进入", "传播", "文书", "渗透"]
+  kan:
+    name: "坎"
+    images: ["水", "风险", "陷", "流动", "隐伏"]
+  li:
+    name: "离"
+    images: ["火", "显现", "文采", "依附", "审美"]
+  gen:
+    name: "艮"
+    images: ["山", "止", "门槛", "停止", "积累"]
+  dui:
+    name: "兑"
+    images: ["泽", "口", "表达", "喜悦", "交换"]
+
+conflict_handling:
+  if_symbolic_against_core:
+    action: "并列输出"
+    required_text: "象意与主结构方向不一致，默认不以象意推翻主结构。"
+  if_multiple_symbols_point_same_way:
+    action: "可以提升为中等辅助证据"
+    condition: "至少两个象意来源同向，且不违背用神、世应、月日、动变。"
+  if_only_one_symbol:
+    action: "只能作为低置信度提示"
